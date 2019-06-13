@@ -65,7 +65,8 @@ double TruncatedCauchy::cdf_inverse(double x) const
 
 double TruncatedCauchy::log_pdf(double x) const
 {
-    if(x<lower or x>upper) return -std::numeric_limits<double>::infinity();
+    if(x < lower || x > upper) 
+        return -std::numeric_limits<double>::infinity();
     return unC.log_pdf(x) - log(c);
 }
 

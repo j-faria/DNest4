@@ -48,7 +48,7 @@ double Triangular::cdf_inverse(double x) const
 
 double Triangular::log_pdf(double x) const
 {
-    if (x<lower or x>upper)
+    if(x < lower || x > upper)
         return -std::numeric_limits<double>::infinity();
     else if ((x>lower) && (x<=centre))
         return log(2.0*(x-lower)) - log((upper-lower)*(centre-lower));
