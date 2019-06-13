@@ -9,7 +9,7 @@ namespace DNest4
 Kumaraswamy::Kumaraswamy(double a, double b)
 :a(a),b(b)
     {
-        if(a <= 0.0 or b <= 0.0)
+        if(a <= 0.0 || b <= 0.0)
             throw std::domain_error("Kumaraswamy distribution must have positive a and b.");
     }
 
