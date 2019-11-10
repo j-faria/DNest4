@@ -75,6 +75,7 @@ class RJObject
 		* fixed: if true, doesn't do RJ steps. N will be fixed at
 		* max_num_components
 		*/
+		RJObject() {};
 		RJObject(int num_dimensions, int max_num_components, bool fixed,
 				    const ConditionalPrior& conditional_prior,
                     PriorType prior_type=PriorType::uniform);
