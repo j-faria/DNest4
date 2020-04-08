@@ -1,7 +1,6 @@
 DNest4
 ======
 
-[![Build Status](https://travis-ci.org/eggplantbren/DNest4.svg?branch=master)](https://travis-ci.org/eggplantbren/DNest4)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/eggplantbren/DNest4/blob/master/LICENSE)
 
 DNest4 is a C++11 implementation of Diffusive Nested Sampling, a Markov Chain
@@ -36,13 +35,10 @@ Statistics and Computing, 21(4), 649-656.
 Dependencies
 ============
 
-All you need is a C++ compiler that
-supports the C++11 standard, along with Python and the
+You will need a C++ compiler that
+supports the C++11 standard, along with Python 3 and the
 Python packages NumPy, scipy, matplotlib, Cython, and Numba.
 [Anaconda](https://www.anaconda.com) is a suitable Python distribution to use.
-for the post-processing scripts. Because of this, it should be much easier
-to compile (at least on a Unix-like operating system such as Ubuntu or
-Mac OS X).
 
 Compiling
 =========
@@ -61,22 +57,21 @@ make
 ```
 
 Along with building the library this will compile all the examples.
-Then, install the Python package:
+Then, install the Python package.
 
+The easiest way to do this is with:
+
+```bash
+pip install -U dnest4
 ```
-cd ../python
+
+but you can install the development version using:
+
+```bash
 python setup.py install
 ```
 
-In Mac OS X, the final line (which installs the Python parts) of DNest4) needs to provide
-information about your OS version. For example, if your computer runs Mac OS X 10.9, the
-installation command for the Python package is
-
-```
-MACOSX_DEPLOYMENT_TARGET=10.9 python setup.py install
-```
-
-
+in the root directory of this repository.
 
 Alternative build process with SCons
 ====================================
