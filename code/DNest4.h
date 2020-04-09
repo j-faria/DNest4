@@ -33,5 +33,7 @@
 #include "Distributions/Triangular.h"
 #include "Distributions/ContinuousDistribution.h"
 
+#include "progress_bar.hpp"
+
 #endif
 

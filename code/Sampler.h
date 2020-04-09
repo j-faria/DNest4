@@ -5,11 +5,13 @@
 #include <thread>
 #include <ostream>
 #include <istream>
+#include <sstream>
 #include "LikelihoodType.h"
 #include "Options.h"
 #include "Level.h"
 #include "RNG.h"
 #include "Barrier.h"
+#include "progress_bar.hpp"
 
 namespace DNest4
 {
@@ -98,6 +100,8 @@ class Sampler
 		void initialise_output_files() const;
 		void save_levels() const;
 		void save_particle();
+
+		ProgressBar progress_bar = ProgressBar(0, "", std::cerr, true, true);
 
 	public:
 		Sampler () {};

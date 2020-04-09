@@ -88,6 +88,10 @@ void Sampler<ModelType>::run(unsigned int thin)
 	// Set the thining of terminal output
 	thin_print = thin;
 
+	progress_bar.SetTotal(options.max_num_saves);
+	// progress_bar.SetDescription("sampling");
+	// progress_bar.SetFrequencyUpdate(20);
+
 #ifndef NO_THREADS
 	// Set up threads and barrier
 	// Delete if necessary (shouldn't be needed!)
@@ -382,6 +386,9 @@ void Sampler<ModelType>::do_bookkeeping()
 {
 	bool created_level = false;
 
+	if (count_saves > 0)
+		progress_bar.Progressed(count_saves, count_mcmc_steps/1000);
+
 	// Create a new level?
 	if(!enough_levels(levels) &&
         (all_above.size() >= options.new_level_interval))
@@ -389,9 +396,14 @@ void Sampler<ModelType>::do_bookkeeping()
 		// Create the level
 		std::sort(all_above.begin(), all_above.end());
 		int index = static_cast<int>((1. - 1./compression)*all_above.size());
-		std::cout<<"# Creating level "<<levels.size()<<" with log likelihood = ";
-		std::cout<<std::setprecision(12);
-		std::cout<<all_above[index].get_value()<<"."<<std::endl;
+		// std::cout<<"# Creating level "<<levels.size()<<" with log likelihood = ";
+		// std::cout<<std::setprecision(12);
+		// std::cout << std::setw(10) << std::setprecision(4) << all_above[index].get_value() << std::endl;
+
+		std::ostringstream s;
+		s << "# level " << std::setw(3) << levels.size() << " loglike = ";
+        s << std::setw(13) << std::setprecision(2) << std::fixed << all_above[index].get_value();
+		progress_bar.SetDescription(s.str());
 
 		levels.push_back(Level(all_above[index]));
 		all_above.erase(all_above.begin(), all_above.begin() + index + 1);
@@ -406,7 +418,8 @@ void Sampler<ModelType>::do_bookkeeping()
 			Level::renormalise_visits(levels, static_cast<int>(reg));
 			all_above.clear();
             options.max_num_levels = levels.size();
-            std::cout<<"# Done creating levels."<<std::endl;
+            // std::cout<<"# Done creating levels."<<std::endl;
+			progress_bar.SetDescription("# done creating levels, sampling at");
 		}
 		else
 		{
@@ -548,8 +561,8 @@ void Sampler<ModelType>::save_particle()
 	if(!save_to_disk)
 		return;
 
-	if(count_saves % thin_print == 0)
-		std::cout<<"# Saving particle to disk. N = "<<count_saves<<"."<<std::endl;
+	// if(count_saves % thin_print == 0)
+	// 	std::cout<<"# Saving particle to disk. N = "<<count_saves<<"."<<std::endl;
 
 	// Output file
 	std::fstream fout;
